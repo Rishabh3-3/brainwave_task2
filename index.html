@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN for social media icons -->
+     <link rel="stylesheet" href="style.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <title>BlogSphere - Dynamic Blogging Platform</title>
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">BlogSphere</div>
+            <div class="nav-links">
+                <div id="guestNav">
+                    <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
+                    <a href="#" onclick="showSection('home')">Home</a>
+                    <button onclick="showSection('login')" class="btn btn-secondary">Login</button>
+                    <button onclick="showSection('register')" class="btn btn-primary">Sign Up</button>
+                </div>
+                <div id="userNav" class="hidden">
+    <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
+    <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+    <a href="#" onclick="showSection('create')">Write Post</a>
+    <div class="user-info dropdown">
+  <div class="user-avatar" id="userAvatar"></div>
+  <div class="username-dropdown-toggle" onclick="toggleUserMenu()">
+    <span id="userName"></span> ⌄
+  </div>
+  <div class="dropdown-menu hidden" id="userDropdown">
+    <button onclick="logout()" class="btn btn-secondary">Logout</button>
+  </div>
+</div>
+
+</div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="alert" class="alert"></div>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+    <h1>Unleash Your Voice</h1>
+    <p>Join a vibrant community of thinkers, creators, and storytellers. <br>BlogSphere is where your words matter.</p>
+    <button onclick="showSection('register')" class="btn btn-primary">Get Started</button>
+</div>
+
+            <div class="blog-grid" id="publicBlogs"></div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                    <small class="error-message" id="loginEmailError"></small>
+
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                    <small class="error-message" id="loginPasswordError"></small>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <h2>Create Your Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                    <small class="error-message" id="registerNameError"></small>
+
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                    <small class="error-message" id="registerEmailError"></small>
+
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                    <small class="error-message" id="registerPasswordError"></small>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <h2>Your Dashboard</h2>
+            <div class="blog-grid" id="userBlogs"></div>
+        </section>
+
+        <!-- Create Post Section -->
+        <section id="create" class="section">
+            <h2 id="createTitle">Create New Post</h2>
+            <form id="postForm">
+                <div class="form-group">
+                    <label for="postTitle">Title</label>
+                    <input type="text" id="postTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">Content</label>
+                    <textarea id="postContent" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postCategory">Category</label>
+                    <input type="text" id="postCategory" placeholder="e.g., Technology, Lifestyle, Travel">
+                </div>
+                <button type="submit" class="btn btn-primary" id="postSubmitBtn">Publish Post</button>
+                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </section>
+
+        <!-- View Post Section -->
+        <section id="viewPost" class="section">
+            <div id="postDetails"></div>
+            <div class="comments-section">
+                <h3>Comments</h3>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <textarea id="commentContent" placeholder="Write your comment..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+                <div id="commentsList"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+  <div class="footer-container container">
+    <div class="footer-column">
+      <h3><span class="brand-red">Blog</span><span class="brand-purple">Sphere</span></h3>
+      <p>Express your thoughts, ideas, and creativity with modern simplicity.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Features</h4>
+      <ul>
+        <li><a href="#">Write & Publish</a></li>
+        <li><a href="#">Comment System</a></li>
+        <li><a href="#">User Dashboard</a></li>
+        <li><a href="#">Responsive UI</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 BlogSphere. All rights reserved. | Designed with ❤️ by BlogSphere Team.
+  </div>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
